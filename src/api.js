@@ -27,8 +27,15 @@ const createStory = async (userId) => {
   return response.data;
 };
 
-const deleteStory = (id) => {
-  return axios.delete(`/api/stories/${id}`);
+const deleteStory = (story) => {
+  return axios.delete(`/api/stories/${story.id}`);
+};
+
+const favoriteStory = async (story) => {
+  const favorite = { favorite: story.favorite };
+  const response = await axios.put(`/api/stories/${story.id}`, favorite);
+  console.log(response);
+  return response.data;
 };
 
 export {
@@ -39,4 +46,5 @@ export {
   deleteUser,
   createStory,
   deleteStory,
+  favoriteStory,
 };

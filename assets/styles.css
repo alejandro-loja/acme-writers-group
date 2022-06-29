@@ -55,3 +55,11 @@ li {
 #user-header {
   border-bottom: red 1px solid;
 }
+
+.favorite {
+  background-color: green;
+}
+
+.not-favorite {
+  background-color: firebrick;
+}

@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { fetchAUser, fetchStories, createStory, deleteStory } from "../api";
+import {
+  fetchAUser,
+  fetchStories,
+  createStory,
+  deleteStory,
+  favoriteStory,
+} from "../api";
 
 class User extends Component {
   constructor() {
@@ -11,6 +17,7 @@ class User extends Component {
     };
     this.createAStory = this.createAStory.bind(this);
     this.deleteAStory = this.deleteAStory.bind(this);
+    this.favoriteAStory = this.favoriteAStory.bind(this);
   }
   async componentDidMount() {
     let response = await fetchAUser(this.props.userId);
@@ -37,14 +44,22 @@ class User extends Component {
   async deleteAStory(story) {
     await deleteStory(story);
     const stories = this.state.stories.filter(
-      (_story) => story.id !== story.id
+      (_story) => _story.id !== story.id
     );
+
+    this.setState({ stories });
+  }
+
+  async favoriteAStory(story) {
+    const updatedStory = await favoriteStory(story);
+    let stories = this.state.stories.filter((_story) => _story.id !== story.id);
+    stories = [...stories, story];
     this.setState({ stories });
   }
 
   render() {
     const { user, stories } = this.state;
-    const { createAStory, deleteAStory } = this;
+    const { createAStory, deleteAStory, favoriteAStory } = this;
     return (
       <div id="right-section">
         <div id="user-header">
@@ -59,7 +74,22 @@ class User extends Component {
             return (
               <li key={story.id}>
                 <h3>
-                  {story.title} <button>x</button>
+                  <button
+                    onClick={() => {
+                      favoriteAStory(story);
+                    }}
+                    className={story.favorite ? "favorite" : "not-favorite"}
+                  >
+                    {story.favorite ? "fave" : "not fave"}
+                  </button>{" "}
+                  {story.title}{" "}
+                  <button
+                    onClick={() => {
+                      deleteAStory(story);
+                    }}
+                  >
+                    x
+                  </button>
                 </h3>
                 <p>{story.body}</p>
               </li>

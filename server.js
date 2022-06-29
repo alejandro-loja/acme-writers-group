@@ -3,6 +3,7 @@ const app = express();
 const { User, Story } = require("./db");
 const path = require("path");
 const { createRandomUser, createRandomStoryForUser } = require("./seed-data");
+const e = require("express");
 
 app.use(express.json());
 
@@ -64,7 +65,6 @@ app.delete("/api/users/:id", async (req, res, next) => {
 });
 
 app.post("/api/users/:userId/stories", async (req, res, next) => {
-  console.log(req.params.userId);
   try {
     res
       .status(201)
@@ -79,6 +79,20 @@ app.delete("/api/stories/:id", async (req, res, next) => {
     const story = await Story.findByPk(req.params.id);
     await story.destroy();
     res.sendStatus(204);
+  } catch (ex) {
+    next(ex);
+  }
+});
+
+app.put("/api/stories/:id", async (req, res, next) => {
+  let bool = req.body.favorite;
+  if (bool === true) {
+    bool = false;
+  } else {
+    bool = true;
+  }
+  try {
+    await Story.update({ favorite: bool }, { where: { id: req.params.id } });
   } catch (ex) {
     next(ex);
   }
