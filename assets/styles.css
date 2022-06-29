@@ -1,0 +1,57 @@
+main {
+  display: flex;
+  height: 500px;
+}
+
+.selected {
+  background-color: gray;
+}
+
+.selected a {
+  color: cornSilk;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#left-section > li:hover {
+  background-color: gray;
+}
+
+li {
+  list-style-type: none;
+}
+
+#header {
+  padding: 1em 0 1em 2em;
+  border: red 1px solid;
+  margin: 0;
+}
+
+#left-section {
+  width: 18%;
+  border: red 1px solid;
+  padding: 0;
+  margin: 0;
+  overflow-y: scroll;
+}
+#left-section > li {
+  border-bottom: red 1px solid;
+  padding: 0.5em 0 0.5em 1em;
+}
+
+#right-section {
+  width: 82%;
+  border: red 1px solid;
+  padding: 0.5em 1rem 0.5em 1em;
+  overflow-y: scroll;
+}
+
+#user-header {
+  border-bottom: red 1px solid;
+}
