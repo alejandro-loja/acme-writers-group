@@ -92,7 +92,11 @@ app.put("/api/stories/:id", async (req, res, next) => {
     bool = true;
   }
   try {
-    await Story.update({ favorite: bool }, { where: { id: req.params.id } });
+    const story = await Story.update(
+      { favorite: bool },
+      { where: { id: req.params.id } }
+    );
+    res.send(await Story.findByPk(req.params.id));
   } catch (ex) {
     next(ex);
   }

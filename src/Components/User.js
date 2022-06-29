@@ -52,8 +52,9 @@ class User extends Component {
 
   async favoriteAStory(story) {
     const updatedStory = await favoriteStory(story);
+    console.log(updatedStory);
     let stories = this.state.stories.filter((_story) => _story.id !== story.id);
-    stories = [...stories, story];
+    stories = [...stories, updatedStory];
     this.setState({ stories });
   }
 
