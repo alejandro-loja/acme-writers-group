@@ -28,10 +28,10 @@ class User extends Component {
   }
 
   async createAStory() {
-    console.log(this.state.user);
-    //   const story = await createStory(userId);
-    //   const stories = [...this.state.stories, story];
-    //   this.setState({ stories });
+    const userId = this.state.user.id;
+    const story = await createStory(userId);
+    const stories = [...this.state.stories, story];
+    this.setState({ stories });
   }
 
   async deleteAStory(story) {

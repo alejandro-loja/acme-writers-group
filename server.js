@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const { User, Story } = require("./db");
 const path = require("path");
-const { createRandomUser, createRandomStory } = require("./seed-data");
+const { createRandomUser, createRandomStoryForUser } = require("./seed-data");
 
 app.use(express.json());
 
@@ -64,8 +64,11 @@ app.delete("/api/users/:id", async (req, res, next) => {
 });
 
 app.post("/api/users/:userId/stories", async (req, res, next) => {
+  console.log(req.params.userId);
   try {
-    res.status(201).send(await Story.create({ userId: req.params.userId }));
+    res
+      .status(201)
+      .send(await Story.create(createRandomStoryForUser(req.params.userId)));
   } catch (ex) {
     next(ex);
   }

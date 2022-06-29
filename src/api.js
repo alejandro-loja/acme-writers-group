@@ -21,7 +21,8 @@ const deleteUser = (user) => {
   return axios.delete(`/api/users/${user.id}`);
 };
 
-const createStory = async ({ userId }) => {
+const createStory = async (userId) => {
+  console.log(userId);
   const response = await axios.post(`/api/users/${userId}/stories`);
   return response.data;
 };

@@ -19,7 +19,16 @@ function createRandomStory() {
   };
 }
 
+function createRandomStoryForUser(userId) {
+  return {
+    title: faker.random.words(5),
+    body: faker.lorem.paragraphs(5),
+    favorite: faker.datatype.boolean(),
+    userId: userId,
+  };
+}
+
 Array.from({ length: 100 }).forEach(() => USERS.push(createRandomUser()));
 Array.from({ length: 500 }).forEach(() => STORIES.push(createRandomStory()));
 
-module.exports = { USERS, STORIES, createRandomUser, createRandomStory };
+module.exports = { USERS, STORIES, createRandomUser, createRandomStoryForUser };
